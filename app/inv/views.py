@@ -4,9 +4,9 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from .models import Categoria, SubCategoria
+from .models import Categoria, SubCategoria, Marca
 
-from .forms import CategoriaForm, SubCategoriaForm
+from .forms import CategoriaForm, SubCategoriaForm, MarcaForm 
 
 
 class CategoriaView(LoginRequiredMixin, generic.ListView):
@@ -96,3 +96,41 @@ class SubCategoriaDel(LoginRequiredMixin, generic.DeleteView):
     success_url=reverse_lazy("inv:subcategoria_list")
     success_message="Sub Categoría Eliminada"
     permission_required="inv.delete_subcategoria"
+
+
+class MarcaView(LoginRequiredMixin,generic.ListView):
+    permission_required = "inv.view_marca"
+    model = Marca
+    template_name = "inv/marca_list.html"
+    context_object_name = "obj"
+
+
+class MarcaNew(LoginRequiredMixin, generic.CreateView):
+    model=Marca
+    template_name="inv/marca_form.html"
+    context_object_name = 'obj'
+    form_class=MarcaForm
+    success_url= reverse_lazy("inv:marca_list")
+    success_message="Marca Creada"
+    permission_required="inv.add_marca"
+
+    def form_valid(self, form):
+        form.instance.uc = self.request.user
+        return super().form_valid(form)
+
+
+class MarcaEdit(LoginRequiredMixin, generic.UpdateView):
+    model=Marca
+    template_name="inv/marca_form.html"
+    context_object_name = 'obj'
+    form_class=MarcaForm
+    success_url= reverse_lazy("inv:marca_list")
+    success_message="Marca Editada"
+    permission_required="inv.change_marca"
+
+    def form_valid(self, form):
+        form.instance.um = self.request.user.id
+        return super().form_valid(form)
+
+
+
