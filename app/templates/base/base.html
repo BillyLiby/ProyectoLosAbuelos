@@ -22,6 +22,9 @@
    <!-- Custom styles for this page -->
    <link href="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.css'%}" rel="stylesheet">
 
+  <!-- Jquery Confirm -->
+    <link href="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.css'%}" rel="stylesheet">
+
 </head>
 
 <body id="page-top" class="bg-gradient-primary">
@@ -431,7 +434,7 @@
 
   <script src="{% static  'base/js/jquery.chained.min.js' %}"></script>
 
-  {% block js_page %} {% endblock %}
+  
 
    {% block control_modal%}
    <script>
@@ -453,8 +456,30 @@
       $('#popup').modal('hide');
       return false;
     }
+
+    function mensaje(msg,color='green')
+    {
+      if (color=="success")
+      {
+        color="green";
+      }
+      if (color=="error")
+      {
+        color="red";
+      }
+
+
+      $.alert({
+        title:'',
+        theme:'material',
+        type:color,
+        content:msg
+      });
+    }
+    
   </script>
   {% endblock%}
+  {% block js_page %} {% endblock %}
 </body>
 
 </html>
