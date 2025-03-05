@@ -60,7 +60,7 @@ $(document).ready(function(){
           console.log(response);
           cerrar_modal();
           //alert(response);
-          var tipo=(response.startsWith('Proveedor no existe') ? 'red':'green' );
+          var tipo=(response.startsWith('Proveedor no existe') ? 'red':'red' );
           mensaje(response,tipo);
         },
         error: function(jqXHR, textStatus, errorThrow){
@@ -70,6 +70,9 @@ $(document).ready(function(){
         }
       });
   });
+
+});
+</script>
 
 });
 </script>
