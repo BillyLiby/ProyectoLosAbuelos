@@ -456,9 +456,14 @@
   <script src="{% static  'base/js/jquery.chained.min.js' %}"></script>
 
   
+<script>
+    $(document).ready(function () {
+      jQuery.datetimepicker.setLocale('es');
+    });
+</script>
 
-   {% block control_modal%}
-   <script>
+  {% block control_modal%}
+  <script>
     function abrir_modal(url)
     {
 
@@ -498,24 +503,12 @@
       });
     }
 
-    function mensaje(msg,color='green')
-    {
-      if (color=="success")
-      {
-        color="green";
-      }
-      if (color=="error")
-      {
-        color="red";
-      }
-    
-     {% if messages %}
+    {% if messages %}
       {% for message in messages %}
         console.log("{{ message.tags }}");
         mensaje("{{ message }}","{{ message.tags }}");
       {% endfor %}
     {% endif %}
-
 
   </script>
   {% endblock%}

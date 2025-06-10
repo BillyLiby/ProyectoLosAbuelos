@@ -236,7 +236,7 @@ def um_inactivar(request, id):
 
 class ProductoView(SinPrivilegios, generic.ListView):
     model = Producto
-    template_name = "inv/prducto_list.html"
+    template_name = "inv/producto_list.html"
     context_object_name = "obj"
     permission_required="inv.view_producto"
 
