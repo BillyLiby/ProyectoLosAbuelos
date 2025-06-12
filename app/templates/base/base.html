@@ -102,6 +102,13 @@
             {% if perms.cmp.view_proveedor %}
             <a class="collapse-item" href="{% url 'cmp:proveedor_list' %}">Proveedores</a>
             {% endif %}
+
+             <!-- CATALOGOS DE VENTAS -->
+            <h6 class="collapse-header">Catálogos de Ventas:</h6>
+            
+            {% if perms.fac.view_cliente %}
+            <a class="collapse-item" href="{% url 'fac:cliente_list' %}">Clientes</a>
+            {% endif %}
   
           </div>
         </div>
