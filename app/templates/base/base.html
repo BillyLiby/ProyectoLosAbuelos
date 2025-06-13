@@ -26,7 +26,9 @@
     <link href="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.css'%}" rel="stylesheet">
 
   <!-- XDSoft DateTimePicker -->  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" /> 
+
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css"> 
 
 </head>
 
@@ -122,6 +124,10 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Entradas</h6>
             <a class="collapse-item" href="{% url 'cmp:compras_list' %}">Compras</a>
+
+            <h6 class="collapse-header">Salidas</h6>
+            <a class="collapse-item" href="{% url 'fac:factura_list' %}">Ventas</a>
+
             </div>
         </div>
       </li>
@@ -378,7 +384,7 @@
                 <div class="dropdown-divider"></div>-->
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                  Cerrar Sesión
                 </a>
               </div>
             </li>
