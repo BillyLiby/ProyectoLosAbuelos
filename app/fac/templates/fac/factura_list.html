@@ -79,6 +79,30 @@
 {% endblock %}
 {% block js_page %}
 <script>
+$(function(){
+  $("#f1, #f2").datetimepicker({
+      format: 'Y-m-d',
+      timepicker:false
+  });
 
+  $("#btnPrint").click(function(e){
+    e.preventDefault();
+    var f1,f2;
+    f1 = $("#f1").val();
+    f2 = $("#f2").val();
+    if(f1=="" || f1==null){
+      f1="2025-06-14";
+    }
+    if(f2=="" || f2==null){
+      var d = new Date();
+      var f2 = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+    }
+    
+    var url = "imprimir-todas/" + f1 + "/" + f2;
+
+    window.open(url,'facturas');
+    
+  });
+});
 </script>
 {% endblock %}

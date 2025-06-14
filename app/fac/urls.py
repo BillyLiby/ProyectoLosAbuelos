@@ -23,4 +23,6 @@ urlpatterns = [
 
     path('facturas/imprimir/<int:id>',imprimir_factura_recibo, name="factura_imprimir_one"),
 
+    path('facturas/imprimir-todas/<str:f1>/<str:f2>',imprimir_factura_list, name="factura_imprimir_all"),
+
 ]
