@@ -20,6 +20,9 @@
     {% if not obj %}
     <div class="alert alert-info">No hay Unidad de Medida</div>
     {% endif %}
+    <div class="buttons-toolbar">
+        <a class="btn btn-success" href="{% url 'inv:um_new' %}"><i cass="far fa-calendar-plus"></i> Ingresar nueva unidad de medida</a>
+    </div>
     <table 
       id="table"
       data-toggle="table"
@@ -36,8 +39,8 @@
         <th data-sortable="true" data-field="ID">Id</th>
         <th data-sortable="true" data-field="descripcion">Unidad Medida</th>
         <th data-sortable="true" data-field="estado">Estado</th>
-        <th>F. Creado</th>
-        <th>F. Modif</th>
+        <th>Fecha de creación</th>
+        <th>Ultima Modificación</th>
         <th class="all">Acciones</th>
       </thead>
       <tbody>
