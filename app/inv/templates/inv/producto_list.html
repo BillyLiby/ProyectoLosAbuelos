@@ -4,7 +4,7 @@
 <div class="card shadow mb-4">
   <!-- Card Header - Dropdown -->
   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-    <h6 class="m-0 font-weight-bold text-primary">Listado de Productos</h6>
+    <h6 class="m-0 font-weight-bold text-primary">INVENTARIO</h6>
     <div class="dropdown no-arrow">
       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -20,6 +20,11 @@
     {% if not obj %}
     <div class="alert alert-info">No Productos</div>
     {% endif %}
+    <div class="buttons-toolbar">
+  <a class="btn btn-success text-white" onclick="return abrir_modal('{% url 'inv:producto_new' %}')">
+    <i class="far fa-calendar-plus"></i> Ingresar nuevo producto
+  </a>
+</div>
     <table 
       id="table"
       data-toggle="table"
@@ -33,26 +38,26 @@
       data-page-size="5"
     >
       <thead>
-        <th th data-sortable="true" data-field="subcategoria">Tipo de Producto</th>        
         <th th data-sortable="true" data-field="codigo">Código</th>
-        <th >Barra</th>
         <th th data-sortable="true" data-field="descripcion">Producto</th>
-        <th th data-sortable="true" data-field="existencia">Existencia</th>
+        <th th data-sortable="true" data-field="subcategoria">Tipo de Producto</th>
+        <th th data-sortable="true" data-field="existencia">Existencia</th> 
         <th th data-sortable="true" data-field="marca">Marca</th>
-        <th>Unidad de Medida</th>
+        <th>Unidad de Medida</th>   
+        <th >Cod. de barra</th>
         <th>Estado</th>
         <th class="all">Acciones</th>
       </thead>
       <tbody>
         {% for item in obj%}
         <tr>
-          <td>{{ item.subcategoria }}</td>
           <td>{{ item.codigo }}</td>
-          <td>{{item.codigo_barra}}</td>
           <td>{{ item.descripcion }}</td>
+          <td>{{ item.subcategoria }}</td>
           <td>{{ item.existencia }}</td>
           <td>{{ item.marca }}</td>
           <td>{{ item.unidad_medida }}</td>
+          <td>{{item.codigo_barra}}</td>
           <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>
           <td>
             <button class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'inv:producto_edit' item.id %}')">
