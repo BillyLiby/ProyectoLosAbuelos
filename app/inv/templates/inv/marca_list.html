@@ -20,6 +20,9 @@
     {% if not obj %}
     <div class="alert alert-info">No hay Marca</div>
     {% endif %}
+    <div class="buttons-toolbar">
+        <a class="btn btn-success" href="{% url 'inv:marca_new' %}"><i cass="far fa-calendar-plus"></i> Ingresar nueva marca</a>
+    </div>
     <table 
       id="table"
       data-toggle="table"
@@ -36,8 +39,8 @@
         <th data-sortable="true" data-field="ID">ID</th>
         <th data-sortable="true" data-field="Marca">Marca</th>
         <th data-sortable="true" data-field="Estado">Estado</th>
-        <th>F. Creado</th>
-        <th>F. Modif</th>
+        <th>Fecha de creación</th>
+        <th>Ultima modificación</th>
         <th class="all">Acciones</th>
       </thead>
       <tbody>
