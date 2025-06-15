@@ -257,8 +257,8 @@ class ProductoNew(SuccessMessageMixin,SinPrivilegios,
     
     def get_context_data(self, **kwargs):
         context = super(ProductoNew, self).get_context_data(**kwargs)
-        context["categorias"] = Categoria.objects.all()
-        context["subcategorias"] = SubCategoria.objects.all()
+        context["categorias"] = Categoria.objects.filter(estado=True)
+        context["subcategorias"] = SubCategoria.objects.filter(estado=True)
         return context
 
 
@@ -281,8 +281,8 @@ class ProductoEdit(SuccessMessageMixin,SinPrivilegios,
         pk = self.kwargs.get('pk')
 
         context = super(ProductoEdit, self).get_context_data(**kwargs)
-        context["categorias"] = Categoria.objects.all()
-        context["subcategorias"] = SubCategoria.objects.all()
+        context["categorias"] = Categoria.objects.filter(estado=True)
+        context["subcategorias"] = SubCategoria.objects.filter(estado=True)
         context["obj"] = Producto.objects.filter(pk=pk).first()
 
         return context

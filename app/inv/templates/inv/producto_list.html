@@ -20,14 +20,25 @@
     {% if not obj %}
     <div class="alert alert-info">No Productos</div>
     {% endif %}
-    <table class="table table-striped table-hover dt-responsive nowrap" style="width:100%">
+    <table 
+      id="table"
+      data-toggle="table"
+      data-pagination="true"
+      data-search="true"
+      data-show-columns="true"
+      data-show-toggle="true"
+      data-show-fullscreen="true"
+      data-toolbar=".buttons-toolbar"
+      data-locale="es-NI"
+      data-page-size="5"
+    >
       <thead>
-        <th>Tipo de Producto</th>        
-        <th>Código</th>
-        <th>Barra</th>
-        <th>Producto</th>
-        <th>Existencia</th>
-        <th>Marca</th>
+        <th th data-sortable="true" data-field="subcategoria">Tipo de Producto</th>        
+        <th th data-sortable="true" data-field="codigo">Código</th>
+        <th >Barra</th>
+        <th th data-sortable="true" data-field="descripcion">Producto</th>
+        <th th data-sortable="true" data-field="existencia">Existencia</th>
+        <th th data-sortable="true" data-field="marca">Marca</th>
         <th>Unidad de Medida</th>
         <th>Estado</th>
         <th class="all">Acciones</th>
@@ -58,33 +69,33 @@
 {% block js_page %}
 <script>
   // Call the dataTables jQuery plugin
-  $(document).ready(function() {
-    $('.table').DataTable({
-      "language": {
-        "sProcessing": "Procesando...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sZeroRecords": "No se encontraron resultados",
-        "sEmptyTable": "Ningún dato disponible en esta tabla",
-        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix": "",
-        "sSearch": "Buscar:",
-        "sUrl": "",
-        "sInfoThousands": ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-            "sFirst": "<span class='fa fa-angle-double-left'></span>",
-            "sLast": "<span class='fa fa-angle-double-right'></span>",
-            "sNext": "<span class='fa fa-angle-right'></span>",
-            "sPrevious": "<span class='fa fa-angle-left'></span>"
-        },
-        "oAria": {
-            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
-      }
-    });
-  });
+  // $(document).ready(function() {
+   //  $('.table').DataTable({
+    //   "language": {
+      //   "sProcessing": "Procesando...",
+     //    "sLengthMenu": "Mostrar _MENU_ registros",
+      //   "sZeroRecords": "No se encontraron resultados",
+      //   "sEmptyTable": "Ningún dato disponible en esta tabla",
+      //   "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      //   "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+      //   "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+     //    "sInfoPostFix": "",
+      //   "sSearch": "Buscar:",
+      //   "sUrl": "",
+      //   "sInfoThousands": ",",
+      //   "sLoadingRecords": "Cargando...",
+     //    "oPaginate": {
+      //       "sFirst": "<span class='fa fa-angle-double-left'></span>",
+      //       "sLast": "<span class='fa fa-angle-double-right'></span>",
+      //       "sNext": "<span class='fa fa-angle-right'></span>",
+     //        "sPrevious": "<span class='fa fa-angle-left'></span>"
+    //     },
+     //    "oAria": {
+    //         "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+       //      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+     //    }
+    //   }
+  //   });
+  // });
   </script>
 {% endblock %}

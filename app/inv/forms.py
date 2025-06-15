@@ -71,18 +71,25 @@ class UMForm(forms.ModelForm):
 
 class ProductoForm(forms.ModelForm):
     class Meta:
-        model=Producto
-        fields=['codigo','codigo_barra','descripcion','estado', \
-                'precio','existencia','ultima_compra',
-                'marca','subcategoria','unidad_medida']
-        exclude = ['um','fm','uc','fc']
-        widget={'descripcion': forms.TextInput()}
+        model = Producto
+        fields = ['codigo', 'codigo_barra', 'descripcion', 'estado',
+                  'precio', 'existencia', 'ultima_compra',
+                  'marca', 'subcategoria', 'unidad_medida']
+        exclude = ['um', 'fm', 'uc', 'fc']
+        widget = {'descripcion': forms.TextInput()}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
+
         self.fields['ultima_compra'].widget.attrs['readonly'] = True
         self.fields['existencia'].widget.attrs['readonly'] = True
+
+        # Aquí filtramos los datos inactivos
+        self.fields['marca'].queryset = Marca.objects.filter(estado=True)
+        self.fields['unidad_medida'].queryset = UnidadMedida.objects.filter(estado=True)
+        self.fields['subcategoria'].queryset = SubCategoria.objects.filter(estado=True)
