@@ -29,6 +29,7 @@ class ComprasEncForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in iter(self.fields):
+            self.fields['proveedor'].queryset = Proveedor.objects.filter(estado=True)
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
