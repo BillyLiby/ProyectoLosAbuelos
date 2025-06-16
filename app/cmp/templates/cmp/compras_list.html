@@ -21,6 +21,18 @@
     {% if not obj %}
     <div class="alert alert-info">No hay compras</div>
     {% endif %}
+<div class="d-flex justify-content-start align-items-center mt-4 mb-4 flex-wrap">
+  <a class="btn btn-success btn-lg text-white" href="{% url 'cmp:compras_new' %}">
+    <i class="fas fa-plus-circle me-2"></i> Ingresar nueva compra
+  </a>
+
+  <!-- Espaciador manual -->
+  <div style="width: 20px;"></div>
+
+  <a class="btn btn-outline-primary btn-lg" href="{% url 'cmp:compras_print_all' %}" target="reportes">
+    <i class="fas fa-file-alt me-2"></i> Reporte de ventas
+  </a>
+</div>
     <table 
       id="table"
       data-toggle="table"
