@@ -20,9 +20,11 @@
     {% if not obj %}
     <div class="alert alert-info">No Hay Clientes</div>
     {% endif %}
-    <div class="buttons-toolbar">
-        <a class="dropdown-item" onclick="return abrir_modal('{% url 'fac:cliente_new' %}')" href="#"><i class="far fa-calendar-plus"></i> Nuevo</a>
-    </div>
+   <div class="buttons-toolbar">
+  <a class="btn btn-success text-white" onclick="return abrir_modal('{% url 'fac:cliente_new' %}')">
+    <i class="far fa-calendar-plus"></i> Ingresar nuevo cliente
+  </a>
+</div>
 
     <table 
       id="table"
