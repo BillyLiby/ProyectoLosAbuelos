@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from datetime import datetime
 from django.contrib import messages
+from django.utils.timezone import localtime
 
 from django.contrib.auth import authenticate
 
@@ -77,6 +78,21 @@ class FacturaView(SinPrivilegios, generic.ListView):
     template_name = "fac/factura_list.html"
     context_object_name = "obj"
     permission_required="fac.view_facturaenc"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        facturas = FacturaEnc.objects.all()
+
+        if facturas.exists():
+            fecha_min = localtime(facturas.order_by("fecha").first().fecha).date()
+            fecha_max = localtime(facturas.order_by("-fecha").first().fecha).date()
+            context["f1_default"] = fecha_min
+            context["f2_default"] = fecha_max
+        else:
+            context["f1_default"] = None
+            context["f2_default"] = None
+
+        return context
 
 
 @login_required(login_url='/login/')

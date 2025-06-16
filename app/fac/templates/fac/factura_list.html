@@ -4,7 +4,7 @@
 <div class="card shadow mb-4">
   <!-- Card Header - Dropdown -->
   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-    <h6 class="m-0 font-weight-bold text-primary">Listado de Ventas</h6>
+    <h6 class="m-0 font-weight-bold text-primary">VENTAS</h6>
     <!-- <div class="dropdown no-arrow">
       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -17,17 +17,23 @@
   </div>
   <!-- Card Body -->
   <div class="card-body">
-    <div class="row">
-      <div class="col-md-4">
-        <input type="text" class="form-class" name="f1" id="f1" readonly>
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-class" name="f2" id="f2" readonly>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-warning" type="button" id="btnPrint">Imprimir</button>
-      </div>
-    </div>
+  <div class="row align-items-end mb-3">
+  <div class="col-md-4">
+    <label for="f1" class="form-label fw-bold">Desde:</label>
+    <input type="text" class="form-control" name="f1" id="f1" value="{{ f1_default|date:'Y-m-d' }}" readonly>
+  </div>
+  <div class="col-md-4">
+    <label for="f2" class="form-label fw-bold">Hasta:</label>
+    <input type="text" class="form-control" name="f2" id="f2" value="{{ f2_default|date:'Y-m-d' }}" readonly>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label d-block text-white">.</label> <!-- para alinear con inputs -->
+    <button class="btn btn-warning w-100" type="button" id="btnPrint">
+      <i class="fas fa-print"></i> Generar Reporte
+    </button>
+  </div>
+</div>
+
     <hr>
 
     
@@ -35,7 +41,7 @@
     <div class="alert alert-info">No Hay Ventas</div>
     {% endif %}
     <div class="buttons-toolbar">
-        <a class="btn btn-success" href="{% url 'fac:factura_new' %}"><i cass="far fa-calendar-plus"></i> Nuevo</a>
+        <a class="btn btn-success" href="{% url 'fac:factura_new' %}"><i cass="far fa-calendar-plus"></i> Registrar nueva venta</a>
     </div>
 
     <table 
@@ -48,9 +54,11 @@
       data-show-fullscreen="true"
       data-toolbar=".buttons-toolbar"
       data-locale="es-NI"
+      data-page-size="5"
     >
     <thead>
-      <th data-sortable="true" data-field="id">No.</th>        
+      <th data-sortable="true" data-field="id">No.</th>     
+      <th data-sortable="true" data-field="fecha">Fecha</th>    
       <th data-sortable="true" data-field="nombres">Cliente</th>
       <th data-sortable="true" data-field="apellidos">Total</th>
       <th data-field="estado">Estado</th>
@@ -60,6 +68,7 @@
       {% for item in obj%}
       <tr>
         <td>{{ item.id }}</td>
+        <td>{{ item.fecha | date:"d/m/Y" }}</td>
         <td>{{ item.cliente }}</td>
         <td>{{ item.total }}</td>
         <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>
