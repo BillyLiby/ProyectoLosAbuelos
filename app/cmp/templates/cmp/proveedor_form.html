@@ -43,32 +43,56 @@
     </div>
 </div> 
 
+
 <script>
 
 $(function() {
-    var url = $("#form-proveedor").attr("action");  // Selección por ID
+    var url = $("#form-proveedor").attr("action");
     var token = $("[name=csrfmiddlewaretoken]").val();
 
     $("#form-proveedor").submit(function(e) {
         e.preventDefault();
-        //alert(token);
         var formData = $("#form-proveedor").serializeArray();
-        //console.log(formData);
+
         $.ajax({
-            url:url,
-            method:"POST",
-            headers: {'X-CSRFToken': token },
+            url: url,
+            method: "POST",
+            headers: {'X-CSRFToken': token},
             data: formData
         })
-        .done(function(r,textStatus,xhr){
-            if(xhr.status=200){
-                location.reload(true);
+        .done(function(r, textStatus, xhr) {
+    if (xhr.status == 200) {
+        // Cierra el modal del formulario primero
+        cerrar_modal();
+        
+        // Muestra el mensaje de éxito (para AMBOS casos: editar y agregar)
+        $.alert({
+            title: "Éxito",
+            content: "{% if obj %}Proveedor EDITADO con éxito{% else %}Proveedor guardado con éxito{% endif %}",
+            buttons: {
+                Aceptar: {
+                    action: function() {
+                        location.reload(); // Recarga la página solo al hacer clic
+                    }
+                }
             }
-            else{
-                mensaje(textStatus);
+        });
+    }
+})
+        .fail(function(error) {
+            // Maneja errores de validación (400) y otros errores
+            if (error.status === 400 && error.responseJSON) {
+                // Muestra errores del formulario en el modal
+                var errors = error.responseJSON;
+                for (var field in errors) {
+                    if (errors.hasOwnProperty(field)) {
+                        var errorMsg = errors[field][0].replace("__all__: ", "");
+                        mensaje(errorMsg);
+                    }
+                }
+            } else {
+                mensaje(error.responseText || "Error desconocido");
             }
-        }).fail(function (error) {
-                mensaje(error.responseText);
         });
     });
 });
