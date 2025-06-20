@@ -15,7 +15,13 @@ from cmp.forms import ProveedorForm, ComprasEncForm
 from bases.views import SinPrivilegios
 from inv.models import Producto
 
-
+class MixinFormInvalid:
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse(form.errors, status=400)
+        else:
+            return response
 
 class ProveedorView(SinPrivilegios, generic.ListView):
     model = Proveedor
@@ -23,7 +29,7 @@ class ProveedorView(SinPrivilegios, generic.ListView):
     context_object_name = "obj"
     permission_required="cmp.view_proveedor"
 
-class ProveedorNew(SuccessMessageMixin, SinPrivilegios,\
+class ProveedorNew(SuccessMessageMixin,MixinFormInvalid, SinPrivilegios,\
                    generic.CreateView):
     model=Proveedor
     template_name="cmp/proveedor_form.html"
@@ -39,7 +45,7 @@ class ProveedorNew(SuccessMessageMixin, SinPrivilegios,\
         return super().form_valid(form)
 
 
-class ProveedorEdit(SuccessMessageMixin, SinPrivilegios,\
+class ProveedorEdit(SuccessMessageMixin, MixinFormInvalid, SinPrivilegios,\
                    generic.UpdateView):
     model=Proveedor
     template_name="cmp/proveedor_form.html"
@@ -197,6 +203,5 @@ class CompraDetDelete(SinPrivilegios, generic.DeleteView):
     def get_success_url(self):
           compra_id=self.kwargs['compra_id']
           return reverse_lazy('cmp:compras_edit', kwargs={'compra_id': compra_id})
-
 
 
