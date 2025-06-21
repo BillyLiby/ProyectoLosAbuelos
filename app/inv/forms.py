@@ -17,6 +17,7 @@ class CategoriaForm(forms.ModelForm):
                 self.fields[field].widget.attrs.update({
                     'class':'form-control' 
                 })
+        
 
 class SubCategoriaForm(forms.ModelForm):
     categoria = forms.ModelChoiceField(
@@ -37,7 +38,7 @@ class SubCategoriaForm(forms.ModelForm):
                 'class':'form-control'
             })
         self.fields['categoria'].empty_label =  "Seleccione Categoría"
-
+    
 
 class MarcaForm(forms.ModelForm):
     class Meta:
@@ -53,6 +54,22 @@ class MarcaForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
+
+    def clean(self):
+        try:
+            sc = Marca.objects.get(
+                descripcion=self.cleaned_data["descripcion"].upper()
+            )
+
+            if not self.instance.pk:
+                print("Registro ya existe")
+                raise forms.ValidationError("ERROR: Esta marca ya existe")
+            elif self.instance.pk!=sc.pk:
+                print("Cambio no permitido")
+                raise forms.ValidationError("ERROR AL EDITAR: Marca ya existe")
+        except Marca.DoesNotExist:
+            pass
+        return self.cleaned_data
 
 class UMForm(forms.ModelForm):
     class Meta:

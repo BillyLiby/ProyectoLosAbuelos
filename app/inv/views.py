@@ -3,6 +3,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib import messages
+from django.http import JsonResponse
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required, permission_required
@@ -12,6 +13,14 @@ from .models import Categoria, SubCategoria, Marca, UnidadMedida, Producto
 from .forms import CategoriaForm, SubCategoriaForm, MarcaForm , UMForm, ProductoForm
 
 from bases.views import SinPrivilegios
+
+class MixinFormInvalid:
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse(form.errors, status=400)
+        else:
+            return response
 
 
 class CategoriaView(SinPrivilegios, generic.ListView):
@@ -31,7 +40,7 @@ class CategoriaView(SinPrivilegios, \
     
 
 
-class CategoriaNew(SuccessMessageMixin,SinPrivilegios,\
+class CategoriaNew(SuccessMessageMixin,SinPrivilegios, MixinFormInvalid,\
     generic.CreateView):
     permission_required="inv.add_categoria"
     model=Categoria
@@ -46,7 +55,7 @@ class CategoriaNew(SuccessMessageMixin,SinPrivilegios,\
         return super().form_valid(form)
 
 
-class CategoriaEdit(SuccessMessageMixin,SinPrivilegios, \
+class CategoriaEdit(SuccessMessageMixin,SinPrivilegios, MixinFormInvalid, \
     generic.UpdateView):
     permission_required="inv.change_categoria"
     model=Categoria
@@ -121,7 +130,7 @@ class MarcaView(SinPrivilegios,\
     context_object_name = "obj"
 
 
-class MarcaNew(SuccessMessageMixin,SinPrivilegios,
+class MarcaNew(SuccessMessageMixin,SinPrivilegios, MixinFormInvalid,
                    generic.CreateView):
     model=Marca
     template_name="inv/marca_form.html"
@@ -136,7 +145,7 @@ class MarcaNew(SuccessMessageMixin,SinPrivilegios,
         return super().form_valid(form)
 
 
-class MarcaEdit(SuccessMessageMixin,SinPrivilegios,
+class MarcaEdit(SuccessMessageMixin,SinPrivilegios, MixinFormInvalid,
                    generic.UpdateView):
     model=Marca
     template_name="inv/marca_form.html"
