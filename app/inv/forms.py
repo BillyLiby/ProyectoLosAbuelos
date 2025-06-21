@@ -5,18 +5,45 @@ from .models import Categoria , SubCategoria, Marca, UnidadMedida, Producto
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
-        model=Categoria
-        fields = ['descripcion','estado']
-        labels = {'descripcion': "Descripcion de la Categoria",
-               "estado":"Estado"}
-        widget={'descripcion': forms.TextInput}
+        model = Categoria
+        fields = ['descripcion', 'estado']
+        labels = {
+            'descripcion': "Descripción de la Categoría",
+            "estado": "Estado"
+        }
+        widgets = {
+            'descripcion': forms.TextInput(attrs={'class': 'form-control'})
+        }
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args,**kwargs)
-            for field in iter(self.fields):
-                self.fields[field].widget.attrs.update({
-                    'class':'form-control' 
-                })
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+            })
+
+    def clean(self):
+        cleaned_data = super().clean()
+        descripcion = cleaned_data.get("descripcion", "").upper()
+        
+        if not descripcion:
+            return cleaned_data
+
+        try:
+            categoria_existente = Categoria.objects.get(
+                descripcion__iexact=descripcion
+            )
+            
+            if not self.instance.pk:  # Creando nueva
+                raise forms.ValidationError("ERROR: Esta categoría ya existe")
+            elif self.instance.pk != categoria_existente.pk:  # Editando
+                raise forms.ValidationError("ERROR AL EDITAR: Categoría ya existe")
+                
+        except Categoria.DoesNotExist:
+            pass
+            
+        cleaned_data["descripcion"] = descripcion
+        return cleaned_data
         
 
 class SubCategoriaForm(forms.ModelForm):

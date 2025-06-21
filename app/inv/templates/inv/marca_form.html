@@ -79,19 +79,21 @@ $(function() {
             }
         })
         .fail(function(error) {
-            // FUNCION
-            if (error.status === 400 && error.responseJSON) {
-                var errors = error.responseJSON;
-                for (var field in errors) {
-                    if (errors.hasOwnProperty(field)) {
-                        var errorMsg = errors[field][0].replace("__all__: ", "");
-                        mensaje(errorMsg);
-                    }
-                }
-            } else {
-                mensaje(error.responseText || "Error desconocido");
+    if (error.status === 400 && error.responseJSON) {
+        var errors = error.responseJSON;
+        for (var field in errors) {
+            if (errors.hasOwnProperty(field)) {
+                var errorMsg = errors[field][0].replace("__all__: ", "");
+                mensaje(errorMsg);
             }
-        });
+        }
+    } else if (error.status === 500) {
+        // Captura errores de integridad de la base de datos
+        mensaje("Error: La categoría ya existe");
+    } else {
+        mensaje(error.responseText || "Error desconocido");
+    }
+});
     });
 });
 </script>
