@@ -66,75 +66,104 @@
       <hr class="sidebar-divider">
 
       <!-- Heading -->
-      <div class="sidebar-heading">
-        Opciones
-      </div>
+<div class="sidebar-heading">
+    Opciones 
+</div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-book"></i>
-          <span>Catalogos</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Catalogos del inventario</h6>
+{% url 'inv:categoria_list' as cat_url %}
+{% url 'inv:subcategoria_list' as s_cat_url %}
+{% url 'inv:marca_list' as marca_url %}
+{% url 'inv:um_list' as um_url %}
+{% url 'inv:producto_list' as producto_url %}
+{% url 'cmp:proveedor_list' as proveedor_url %}
+{% url 'cmp:compras_list' as cmp_url %}
+{% url 'fac:cliente_list' as cliente_url %}
+{% url 'fac:factura_list' as fac_url %}
 
+<!-- Nav Item - Catalogos -->
+<li class="nav-item {% if cat_url in request.path or s_cat_url in request.path or marca_url in request.path or um_url in request.path or producto_url in request.path or proveedor_url in request.path or cliente_url in request.path %}active{% endif %}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-book"></i>
+        <span>Catalogos</span>
+    </a>
+    <div id="collapseTwo" class="collapse {% if cat_url in request.path or s_cat_url in request.path or marca_url in request.path or um_url in request.path or producto_url in request.path or proveedor_url in request.path or cliente_url in request.path %}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Inventario</h6>
+            
             <!-- CATEGORIA -->
             {% if perms.inv.view_categoria %}
-            <a class="collapse-item" href="{% url 'inv:categoria_list' %}">Categorias</a>
+            <a class="collapse-item {% if cat_url in request.path %}active{% endif %}" href="{{cat_url}}">
+                <i class="fas fa-fw fa-tags mr-2"></i>Categorias
+            </a>
             {% endif %}
-
+            
             <!-- SUB CATEGORIA -->
             {% if perms.inv.view_subcategoria %}
-            <a class="collapse-item" href="{% url 'inv:subcategoria_list' %}">Sub Categorias</a>
+            <a class="collapse-item {% if s_cat_url in request.path %}active{% endif %}" href="{{s_cat_url}}">
+                <i class="fas fa-fw fa-tag mr-2"></i>Sub Categorias
+            </a>
             {% endif %}
+            
             <!-- MARCA -->
             {% if perms.inv.view_marca %}
-             <a class="collapse-item" href="{% url 'inv:marca_list' %}">Marca</a>
+            <a class="collapse-item {% if marca_url in request.path %}active{% endif %}" href="{{marca_url}}">
+                <i class="fas fa-fw fa-certificate mr-2"></i>Marcas
+            </a>
             {% endif %}
-             <!-- UNIDAD MEDIDA -->
-            {% if perms.inv.view_unidadmedida %}
-             <a class="collapse-item" href="{% url 'inv:um_list' %}">Unidad Medida</a>
-            {% endif %}
-             <!-- PRODUCTO -->
-            {% if perms.inv.view_producto %}
-             <a class="collapse-item" href="{% url 'inv:producto_list' %}">Producto</a>
-            {% endif %}
-             <!-- CATALOGOS DE COMPRAS -->
-             
-              <h6 class="collapse-header">Catálogos de Compras:</h6>
-
-            {% if perms.cmp.view_proveedor %}
-            <a class="collapse-item" href="{% url 'cmp:proveedor_list' %}">Proveedores</a>
-            {% endif %}
-
-             <!-- CATALOGOS DE VENTAS -->
-            <h6 class="collapse-header">Catálogos de Ventas:</h6>
             
-            {% if perms.fac.view_cliente %}
-            <a class="collapse-item" href="{% url 'fac:cliente_list' %}">Clientes</a>
+            <!-- UNIDAD MEDIDA -->
+            {% if perms.inv.view_unidadmedida %}
+            <a class="collapse-item {% if um_url in request.path %}active{% endif %}" href="{{um_url}}">
+                <i class="fas fa-fw fa-balance-scale mr-2"></i>Unidades Medida
+            </a>
             {% endif %}
-  
-          </div>
+            
+            <!-- PRODUCTO -->
+            {% if perms.inv.view_producto %}
+            <a class="collapse-item {% if producto_url in request.path %}active{% endif %}" href="{{producto_url}}">
+                <i class="fas fa-fw fa-boxes mr-2"></i>Productos
+            </a>
+            {% endif %}
+
+            <h6 class="collapse-header">Compras</h6>
+            <!-- PROVEEDORES -->
+            {% if perms.cmp.view_proveedor %}
+            <a class="collapse-item {% if proveedor_url in request.path %}active{% endif %}" href="{{proveedor_url}}">
+                <i class="fas fa-fw fa-truck mr-2"></i>Proveedores
+            </a>
+            {% endif %}
+
+            <h6 class="collapse-header">Ventas</h6>
+            <!-- CLIENTES -->
+            {% if perms.fac.view_cliente %}
+            <a class="collapse-item {% if cliente_url in request.path %}active{% endif %}" href="{{cliente_url}}">
+                <i class="fas fa-fw fa-users mr-2"></i>Clientes
+            </a>
+            {% endif %}
         </div>
-      </li>
-      <li class="nav-item {% if cmp_url in request.path  %} active {% endif %}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCompras" aria-expanded="true" aria-controls="collapseCompras">
-          <i class="fas fa-fw fa-truck"></i>
-          <span>Movimientos</span>
-        </a>
-        <div id="collapseCompras" class="collapse {% if cmp_url in request.path  %} show {% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+    </div>
+</li>
+
+<!-- Nav Item - Movimientos -->
+<li class="nav-item {% if cmp_url in request.path or fac_url in request.path %}active{% endif %}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCompras" aria-expanded="true" aria-controls="collapseCompras">
+        <i class="fas fa-fw fa-exchange-alt"></i>
+        <span>Movimientos</span>
+    </a>
+    <div id="collapseCompras" class="collapse {% if cmp_url in request.path or fac_url in request.path %}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Entradas</h6>
-            <a class="collapse-item" href="{% url 'cmp:compras_list' %}">Compras</a>
+            <a class="collapse-item {% if cmp_url in request.path %}active{% endif %}" href="{{cmp_url}}">
+                <i class="fas fa-fw fa-shopping-cart mr-2"></i>Compras
+            </a>
 
             <h6 class="collapse-header">Salidas</h6>
-            <a class="collapse-item" href="{% url 'fac:factura_list' %}">Ventas</a>
-
-            </div>
+            <a class="collapse-item {% if fac_url in request.path %}active{% endif %}" href="{{fac_url}}">
+                <i class="fas fa-fw fa-cash-register mr-2"></i>Ventas
+            </a>
         </div>
-      </li>
+    </div>
+</li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <!-- <li class="nav-item">
