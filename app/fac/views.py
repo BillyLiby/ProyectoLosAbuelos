@@ -4,7 +4,7 @@ from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from datetime import datetime
 from django.contrib import messages
 from django.utils.timezone import localtime
@@ -17,6 +17,14 @@ from .models import Cliente, FacturaEnc, FacturaDet
 from .forms import ClienteForm
 import inv.views as inv
 from inv.models import Producto
+
+class MixinFormInvalid:
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse(form.errors, status=400)
+        else:
+            return response
 
 class ClienteView(SinPrivilegios, generic.ListView):
     model = Cliente
@@ -44,20 +52,28 @@ class VistaBaseEdit(SuccessMessageMixin,SinPrivilegios, \
         return super().form_valid(form)
     
 
-class ClienteNew(VistaBaseCreate):
+class ClienteNew(SuccessMessageMixin, SinPrivilegios, MixinFormInvalid, generic.CreateView):
     model=Cliente
     template_name="fac/cliente_form.html"
     form_class=ClienteForm
     success_url= reverse_lazy("fac:cliente_list")
     permission_required="fac.add_cliente"
 
+    def form_valid(self, form):
+        form.instance.uc = self.request.user
+        return super().form_valid(form)
 
-class ClienteEdit(VistaBaseEdit):
+
+class ClienteEdit(SuccessMessageMixin, SinPrivilegios, MixinFormInvalid, generic.UpdateView):
     model=Cliente
     template_name="fac/cliente_form.html"
     form_class=ClienteForm
     success_url= reverse_lazy("fac:cliente_list")
     permission_required="fac.change_cliente"
+
+    def form_valid(self, form):
+        form.instance.um = self.request.user.id
+        return super().form_valid(form)
 
 @login_required(login_url="/login/")
 @permission_required("fac.change_cliente",login_url="/login/")

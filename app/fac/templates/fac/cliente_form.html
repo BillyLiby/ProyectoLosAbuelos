@@ -1,9 +1,9 @@
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         {% if obj %}
-        <form role="form" id="frmCliente" action="{% url 'fac:cliente_edit' obj.pk %}" method="post"  class="form-inline">
+        <form id="form-cliente" role="form" action="{% url 'fac:cliente_edit' obj.pk %}" method="post" class="form-inline">
         {% else %}
-        <form role="form"  id="frmCliente" action="{% url 'fac:cliente_new' %}" method="post"  class="form-inline">
+        <form id="form-cliente" role="form" action="{% url 'fac:cliente_new' %}" method="post" class="form-inline">
         {% endif %}
             <div class="col-xl-12 col-md-12 mb-12">
                 {% if obj %}
@@ -16,20 +16,18 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             {% if obj %} Editar {% else %} Nuevo {% endif %} Cliente
-                            {% if t %} En Factura {% endif %}
                         </div>
                         <div class="dropdown-divider"></div>
                         {% csrf_token %}
                         <div class="row">
-                            <input type="hidden" name="id" id="id" class="form-class frmid">
                             {{ form.as_p }}
                         </div>
                         <div class="dropdown-divider"></div>
                         <div class="row">
                             <div class="col">
-                                <button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Guardar</button>
-                                <button type="button" class="btn btn-danger" onclick="return cerrar_modal()">
-                                        Cancelar
+                                <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                                <button type="button" class="btn btn-success" onclick="return cerrar_modal()">
+                                    Cancelar
                                 </button>
                             </div>
                         </div>
@@ -43,32 +41,52 @@
             </div>
         </form>
     </div>
-</div> 
+</div>
 
-{% if t %}
 <script>
-$("#frmCliente").submit(function( e ) {
-    var frm = $('#frmCliente');
-    // alert("{{request.path}}")
-    $.ajax({
-            type: frm.attr('method'),
-            // url: frm.attr('action'),
-            url: "{{request.path}}",
-            data: frm.serialize(),
-            success: function (data) {
-                // alert(data);
-                // window.location.reload(true);
-                $("#id").val(data)
-                console.log(data)
-                cerrar_modal()
-            },
-            error: function(data,b,c) {
-                alert(data);
-                console.log(c)
+$(function() {
+    var url = $("#form-cliente").attr("action");
+    var token = $("[name=csrfmiddlewaretoken]").val();
+
+    $("#form-cliente").submit(function(e) {
+        e.preventDefault();
+        var formData = $("#form-cliente").serializeArray();
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            headers: {'X-CSRFToken': token},
+            data: formData
+        })
+        .done(function(r, textStatus, xhr) {
+            if (xhr.status == 200) {
+                cerrar_modal();
+                $.alert({
+                    title: "Éxito",
+                    content: "{% if obj %}Cliente EDITADO con éxito{% else %}Cliente guardado con éxito{% endif %}",
+                    buttons: {
+                        Aceptar: {
+                            action: function() {
+                                location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        })
+        .fail(function(error) {
+            if (error.status === 400 && error.responseJSON) {
+                var errors = error.responseJSON;
+                for (var field in errors) {
+                    if (errors.hasOwnProperty(field)) {
+                        var errorMsg = errors[field][0].replace("__all__: ", "");
+                        mensaje(errorMsg);
+                    }
+                }
+            } else {
+                mensaje(error.responseText || "Error desconocido");
             }
         });
-        return false;
+    });
 });
-
 </script>
-{% endif %}
