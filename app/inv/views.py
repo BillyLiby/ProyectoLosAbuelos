@@ -86,7 +86,7 @@ class SubCategoriaView(SinPrivilegios, \
     context_object_name = "obj"
 
 
-class SubCategoriaNew(SuccessMessageMixin,SinPrivilegios, generic.CreateView):
+class SubCategoriaNew(SuccessMessageMixin,SinPrivilegios, MixinFormInvalid, generic.CreateView):
     model=SubCategoria
     template_name="inv/subcategoria_form.html"
     context_object_name = "obj"
@@ -100,7 +100,7 @@ class SubCategoriaNew(SuccessMessageMixin,SinPrivilegios, generic.CreateView):
         return super().form_valid(form)
 
 
-class SubCategoriaEdit(SuccessMessageMixin,SinPrivilegios, generic.UpdateView):
+class SubCategoriaEdit(SuccessMessageMixin,SinPrivilegios,  MixinFormInvalid, generic.UpdateView):
     model=SubCategoria
     template_name="inv/subcategoria_form.html"
     context_object_name = "obj"

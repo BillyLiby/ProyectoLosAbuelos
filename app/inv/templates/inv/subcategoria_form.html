@@ -56,4 +56,52 @@
 </form>
 {% endblock %}
 {% block js_page %}
+
+<script>
+
+$(function() {
+    // Configura el formulario para usar AJAX
+    $("form").submit(function(e) {
+        e.preventDefault();
+        var formData = $(this).serializeArray();
+        var url = $(this).attr("action") || "{% if obj %}{% url 'inv:subcategoria_edit' obj.pk %}{% else %}{% url 'inv:subcategoria_new' %}{% endif %}";
+        var token = $("[name=csrfmiddlewaretoken]").val();
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            headers: {'X-CSRFToken': token},
+            data: formData
+        })
+        .done(function(r, textStatus, xhr) {
+            if (xhr.status == 200) {
+                {% if obj %}
+                    mensaje("Sub Categoria EDITADA con éxito", function() {
+                        location.reload();
+                    });
+                {% else %}
+                    mensaje("Sub Categoria guardada con éxito", function() {
+                        window.location.href = "{% url 'inv:subcategoria_list' %}";
+                    });
+                {% endif %}
+            }
+        })
+        .fail(function(error) {
+            // FUNCION
+            if (error.status === 400 && error.responseJSON) {
+                var errors = error.responseJSON;
+                for (var field in errors) {
+                    if (errors.hasOwnProperty(field)) {
+                        var errorMsg = errors[field][0].replace("__all__: ", "");
+                        mensaje(errorMsg);
+                    }
+                }
+            } else {
+                mensaje(error.responseText || "Error desconocido");
+            }
+        });
+    });
+});
+</script>
+
 {% endblock %}

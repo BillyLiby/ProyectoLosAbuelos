@@ -66,6 +66,29 @@ class SubCategoriaForm(forms.ModelForm):
             })
         self.fields['categoria'].empty_label =  "Seleccione Categoría"
     
+    def clean(self):
+        cleaned_data = super().clean()
+        descripcion = cleaned_data.get("descripcion", "").upper()
+        
+        if not descripcion:
+            return cleaned_data
+
+        try:
+            categoria_existente = SubCategoria.objects.get(
+                descripcion__iexact=descripcion
+            )
+            
+            if not self.instance.pk:  # Creando nueva
+                raise forms.ValidationError("ERROR: Esta Sub Categoría ya existe")
+            elif self.instance.pk != categoria_existente.pk:  # Editando
+                raise forms.ValidationError("ERROR AL EDITAR: Sub Categoría ya existe")
+                
+        except SubCategoria.DoesNotExist:
+            pass
+            
+        cleaned_data["descripcion"] = descripcion
+        return cleaned_data
+    
 
 class MarcaForm(forms.ModelForm):
     class Meta:
