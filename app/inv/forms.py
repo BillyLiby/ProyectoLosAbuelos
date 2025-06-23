@@ -125,7 +125,7 @@ class UMForm(forms.ModelForm):
     class Meta:
         model=UnidadMedida
         fields = ['descripcion','estado']
-        labels= {'descripcion': "Descripción de la Marca",
+        labels= {'descripcion': "Descripción de la Unidad de Medida",
                 "estado":"Estado"}
         widget={'descripcion': forms.TextInput()}
 
@@ -135,6 +135,29 @@ class UMForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        descripcion = cleaned_data.get("descripcion", "").upper()
+        
+        if not descripcion:
+            return cleaned_data
+
+        try:
+            um_existente = UnidadMedida.objects.get(
+                descripcion__iexact=descripcion
+            )
+            
+            if not self.instance.pk:  # Creando nueva
+                raise forms.ValidationError("ERROR: Esta unidad de medida ya existe")
+            elif self.instance.pk != um_existente.pk:  # Editando
+                raise forms.ValidationError("ERROR AL EDITAR: Unidad de medida ya existe")
+                
+        except UnidadMedida.DoesNotExist:
+            pass
+            
+        cleaned_data["descripcion"] = descripcion
+        return cleaned_data
 
 class ProductoForm(forms.ModelForm):
     class Meta:

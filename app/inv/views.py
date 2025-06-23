@@ -190,7 +190,7 @@ class UMView(SinPrivilegios, generic.ListView):
     permission_required="inv.view_unidadmedida"
 
 
-class UMNew(SuccessMessageMixin,SinPrivilegios,
+class UMNew(SuccessMessageMixin,SinPrivilegios,MixinFormInvalid,
                    generic.CreateView):
     model=UnidadMedida
     template_name="inv/um_form.html"
@@ -206,7 +206,7 @@ class UMNew(SuccessMessageMixin,SinPrivilegios,
         return super().form_valid(form)
 
 
-class UMEdit(SuccessMessageMixin,SinPrivilegios,
+class UMEdit(SuccessMessageMixin,SinPrivilegios,MixinFormInvalid,
                    generic.UpdateView):
     model=UnidadMedida
     template_name="inv/um_form.html"
