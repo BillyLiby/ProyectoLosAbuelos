@@ -477,10 +477,10 @@
         </div>
         <div class="modal-body">Al dar click en el botón Salir, cerrará la sesión para <mark>{{ user.username }}</mark></div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary" type="button" data-dismiss="modal">Cancelar</button>
           <form method="POST" action="{% url 'bases:logout' %}">
             {% csrf_token %}
-            <button class="btn btn-primary" type="submit">Salir</button>
+            <button class="btn btn-danger" type="submit">Salir</button>
           </form>
         </div>
       </div>
