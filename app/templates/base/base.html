@@ -45,12 +45,12 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'bases:home' %}">
-        <div class="sidebar-brand-icon ">
-         <i class="fas fa-store"></i>
-        </div>
-        <div class="sidebar-brand-text mx-2 "> Abarroteria <sup> Los Abuelos </sup></div>
-      </a>
+<a class="sidebar-brand d-flex align-items-center justify-content-center bg-white text-dark" href="{% url 'bases:home' %}" style="border-bottom: 1px solid #e5e7eb;">
+  <div class="sidebar-brand-icon text-dark">
+    <i class="fas fa-store"></i>
+  </div>
+  <div class="sidebar-brand-text mx-2 fw-bold">ABARROTERIA <sup>LOS ABUELOS</sup></div>
+</a>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
@@ -182,13 +182,9 @@
         </div>
       </li> -->
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+    
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        ENTRADAS
-      </div>
+      
 
       <!-- Nav Item - Pages Collapse Menu 
       <li class="nav-item active">
@@ -477,10 +473,10 @@
         </div>
         <div class="modal-body">Al dar click en el botón Salir, cerrará la sesión para <mark>{{ user.username }}</mark></div>
         <div class="modal-footer">
-          <button class="btn btn-primary" type="button" data-dismiss="modal">Cancelar</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
           <form method="POST" action="{% url 'bases:logout' %}">
             {% csrf_token %}
-            <button class="btn btn-danger" type="submit">Salir</button>
+            <button class="btn btn-primary" type="submit">Salir</button>
           </form>
         </div>
       </div>

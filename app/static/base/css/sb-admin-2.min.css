@@ -11794,10 +11794,11 @@ a:focus {
 }
 
 .bg-gradient-primary {
-    background-color: #f9cb40;
-    background-image: linear-gradient(180deg, #f9cb40 10%, #e0b52f 100%);
+    background-color: #f7b733;
+    background-image: linear-gradient(180deg, #f7b733 10%, #fbbf24 100%);
     background-size: cover;
 }
+
 
 .bg-gradient-success {
     background-color: #1cc88a;
@@ -13250,3 +13251,23 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
     width: 100%
 }
+
+
+/* Texto de elementos del sidebar */
+.sidebar-dark .nav-item .nav-link,
+.sidebar-dark .nav-item .nav-link i {
+    color: #000 !important;
+}
+
+/* Texto activo del sidebar (cuando se selecciona) */
+.sidebar-dark .nav-item.active .nav-link,
+.sidebar-dark .nav-item.active .nav-link i {
+    color: #000 !important;
+    font-weight: bold;
+}
+
+/* Texto de encabezados del sidebar como "OPCIONES", "INVENTARIO", etc */
+.sidebar-dark .sidebar-heading {
+    color: #000 !important;
+}
+
