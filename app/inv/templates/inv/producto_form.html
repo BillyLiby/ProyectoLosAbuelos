@@ -182,7 +182,9 @@
     const previewContainer = document.getElementById('newImagePreview');
     const previewImage = document.getElementById('imagePreview');
     
-    if (this.files && this.files[0]) {
+    if (this.files[0].size > 1024 * 1024) {
+        alert("La imagen no debe superar 1MB");
+    this.value = "";
         const reader = new FileReader();
         
         reader.onload = function(e) {
@@ -192,6 +194,7 @@
         }
         
         reader.readAsDataURL(this.files[0]);
+        return;
     }
 });
 </script>
