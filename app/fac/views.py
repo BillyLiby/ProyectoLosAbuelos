@@ -74,6 +74,11 @@ class ClienteEdit(SuccessMessageMixin, SinPrivilegios, MixinFormInvalid, generic
     def form_valid(self, form):
         form.instance.um = self.request.user.id
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["obj"] = self.get_object()  # Esto asegura que 'obj' esté disponible en el template
+        return context
 
 @login_required(login_url="/login/")
 @permission_required("fac.change_cliente",login_url="/login/")
