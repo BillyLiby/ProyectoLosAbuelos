@@ -425,14 +425,427 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-         {% block page_content %}
-        <div class="container-fluid">
+{% block page_content %}
+<div class="scroll-container">
+  <!-- Sección Hero -->
+  <section class="section section-1">
+    <div class="hero-content">
+      <h1 class="hero-title">Abarrotería <span>Los Abuelos</span></h1>
+      <p class="hero-subtitle">Más de 30 años sirviendo a la comunidad</p>
+      <div class="hero-buttons">
+        <a href="#productos" class="btn btn-primary">Ver productos</a>
+        <a href="#historia" class="btn btn-outline">Historia</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Desliza para explorar</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-
+  <!-- Sección Productos -->
+  <section class="section section-2" id="productos">
+    <div class="container">
+      <h2 class="section-title">Nuestros <span>Productos</span></h2>
+      <p class="section-description">Lo mejor para tu hogar y negocio</p>
+      
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-img" style="background-image: url('{% static 'base/img/img4.jpg' %}');"></div>
+          <h3>Abarrotes</h3>
+          <p>Todo lo esencial para tu despensa</p>
         </div>
-        {% endblock %}
+        
+        <div class="product-card">
+          <div class="product-img" style="background-image: url('{% static 'base/img/img16.png' %}');"></div>
+          <h3>Bebidas</h3>
+          <p>Gaseosas, agua pura, jugos y más</p>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-img" style="background-image: url('{% static 'base/img/limp.png' %}');"></div>
+          <h3>Limpieza</h3>
+          <p>Productos para mantener tu hogar impecable</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Sobre Nosotros -->
+  <section class="section section-3" id="historia">
+    <div class="about-container">
+      <div class="about-text">
+        <h2 class="section-title">Nuestra <span>Historia</span></h2>
+        <p>En enero de 2019, Abarrotería Los Abuelos nació como un emprendimiento familiar en Santa Lucia Milpas Altas. Inició con la visión del hijo de Ana Godoy y Enio Morales
+        quien más adelante, por motivos laborales, dejó el negocio a cargo de sus padres y su sobrino. </p> 
+        <p>Desde entonces, 
+        ellos han llevado la administración con dedicación y compromiso. Hoy, la abarrotería se ha consolidado como un comercio confiable y cercano, 
+        ofreciendo productos de primera necesidad a una clientela fiel de la comunidad.</p>
+        <p>En la abarroteria Los Abuelos ofrecemos:</p>
+        <ul class="about-features">
+          <li><i class="fas fa-check-circle"></i> Productos de calidad</li>
+          <li><i class="fas fa-check-circle"></i> Precios competitivos</li>
+          <li><i class="fas fa-check-circle"></i> Atención personalizada</li>
+        </ul>
+      </div>
+      <div class="about-img" style="background-image: url('{% static 'base/img/LOGO.png' %}');"></div>
+    </div>
+  </section>
+
+
+</div>
+
+<style>
+:root {
+  --primary:rgb(171, 71, 0); 
+  --primary-dark: #E67335;
+  --secondary: #4CB944;
+  --dark: #2E4057;
+  --light: #F5F5F5;
+  --accent: #FFD166;
+}
+
+/* Estilos base de scroll */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.section {
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Sección Hero */
+.section-1 {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-out;
+}
+
+.hero-title {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.hero-title span {
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--dark);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-outline {
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-outline:hover {
+  background-color: white;
+  color: var(--primary);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  animation: bounce 2s infinite;
+}
+
+.scroll-indicator i {
+  display: block;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Sección Productos */
+.section-2 {
+  background-color: var(--light);
+  color: var(--dark);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.section-title span {
+  color: var(--primary);
+}
+
+.section-description {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  color: #666;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+}
+
+.product-img {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.product-card h3 {
+  margin: 1rem 0 0.5rem;
+  color: var(--primary-dark);
+}
+
+.product-card p {
+  padding: 0 1rem 1.5rem;
+  color: #666;
+}
+
+/* Sección Sobre Nosotros */
+.section-3 {
+  background-color:rgba(254, 255, 184, 0.37);
+  color: var(--dark);
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.about-text {
+  text-align: left;
+}
+
+.about-img {
+  height: 400px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.about-features {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.about-features li {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.about-features i {
+  color: var(--secondary);
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Sección Contacto */
+.section-4 {
+  background: linear-gradient(135deg, var(--dark), #1A2A3A);
+  color: white;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.contact-info {
+  text-align: left;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.info-item i {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-right: 1rem;
+  width: 30px;
+  text-align: center;
+}
+
+.contact-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.contact-form h3 {
+  color: var(--dark);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: inherit;
+}
+
+.form-group textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+  40% { transform: translateY(-20px) translateX(-50%); }
+  60% { transform: translateY(-10px) translateX(-50%); }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .about-container,
+  .contact-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .about-text {
+    text-align: center;
+  }
+  
+  .info-item {
+    justify-content: center;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+// Smooth scroll para los enlaces internos
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Efecto de aparición al hacer scroll
+const sections = document.querySelectorAll('.section');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+sections.forEach(section => {
+    observer.observe(section);
+});
+</script>
+{% endblock %}
+
         <!-- /.container-fluid -->
          {% block footer %}
 
