@@ -1,10 +1,10 @@
 {% extends 'base/base.html' %}
 
 {% block page_content %}
-<div class="card shadow mb-4">
+<div class="card shadow mb-4" >
     <!-- Card Header - Dropdown -->
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">CATEGORIAS</h6>
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" >
+        <h6 class="m-0 font-weight-bold text-primary" >CATEGORIAS</h6>
         <div class="dropdown no-arrow">
             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -22,7 +22,7 @@
              <div class="alert alert-info">No hay categorías</div>
             {% else %}
     <div class="buttons-toolbar">
-        <a class="btn btn-success" href="{% url 'inv:categoria_new' %}"><i cass="far fa-calendar-plus"></i> Ingresar nueva categoria</a>
+        <a class="btn btn-warning" href="{% url 'inv:categoria_new' %}"><i cass="far fa-calendar-plus"></i> Ingresar nueva categoria</a>
     </div>
         <table 
       id="table"
@@ -36,8 +36,8 @@
       data-locale="es-NI"
       data-page-size="5"
     >
-            <thead>
-                <th data-sortable="true" data-field="ID">Id</th>
+            <thead class="text-center">
+                <th data-sortable="true" data-field="ID" class="text-center">Id</th>
                 <th data-sortable="true" data-field="Categoria">Categoría</th>
                 <th data-sortable="true" data-field="Estado">Estado</th>
                 <th>Fecha Creado</th>
@@ -46,14 +46,14 @@
             </thead>
             <tbody>
                 {% for item in obj %}
-                <tr>
+                <tr class="text-center">
                     <td>{{ item.id }}</td>
                     <td>{{ item.descripcion }}</td>
                     <td>{{ item.estado|yesno:"Activo,Inactivo" }}</td>
                     <td>{{ item.fc|date:"d/m/Y H:i:s" }}</td>
                     <td>{{ item.fm|date:"d/m/Y H:i:s" }}</td>
-                    <td><a href="{% url 'inv:categoria_edit' item.id %}" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a>
-                    <a href="{% url 'inv:categoria_del' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="far fa-trash-alt"></i></a>
+                    <td class="text-center"><a href="{% url 'inv:categoria_edit' item.id %}" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a>
+                    <!-- <a href="{% url 'inv:categoria_del' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="far fa-trash-alt"></i></a> -->
                     </td>
                 </tr>
                 {% endfor %}
