@@ -21,9 +21,11 @@
         {% if not obj %}
              <div class="alert alert-info">No hay categorías</div>
             {% else %}
-    <div class="buttons-toolbar">
-        <a class="btn btn-warning" href="{% url 'inv:categoria_new' %}"><i cass="far fa-calendar-plus"></i> Ingresar nueva categoria</a>
-    </div>
+     <div class="buttons-toolbar my-3">
+    <a class="btn btn-warning text-dark border-dark shadow-sm fw-semibold" href="{% url 'inv:categoria_new' %}">
+        <i class="fas fa-plus-circle me-2"></i> Ingresar nueva Categoría
+    </a>
+</div>
         <table 
       id="table"
       data-toggle="table"
