@@ -20,9 +20,11 @@
     {% if not obj %}
     <div class="alert alert-info">No hay Marca</div>
     {% endif %}
-    <div class="buttons-toolbar">
-        <a class="btn btn-success" href="{% url 'inv:marca_new' %}"><i cass="far fa-calendar-plus"></i> Ingresar nueva marca</a>
-    </div>
+     <div class="buttons-toolbar my-3">
+    <a class="btn btn-warning text-dark border-dark shadow-sm fw-semibold" href="{% url 'inv:marca_new' %}">
+        <i class="fas fa-plus-circle me-2"></i> Ingresar nueva Marca
+    </a>
+</div>
     <table 
       id="table"
       data-toggle="table"
