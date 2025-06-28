@@ -44,7 +44,6 @@
         <th th data-sortable="true" data-field="existencia">Existencia</th> 
         <th th data-sortable="true" data-field="marca">Marca</th>
         <th>Unidad de Medida</th>   
-        <th >Cod. de barra</th>
         <th>Imagen</th>
         <th>Estado</th>
         <th th data-sortable="true" data-field="tipo_producto">Tipo</th>
@@ -59,7 +58,6 @@
           <td>{{ item.existencia }}</td>
           <td>{{ item.marca }}</td>
           <td>{{ item.unidad_medida }}</td>
-          <td>{{item.codigo_barra}}</td>
           <td>
   {% if item.foto %}
     <img src="{{ item.foto.url }}" alt="{{ item.descripcion }}" class="img-thumbnail" style="max-width: 60px; height: auto;">
