@@ -76,6 +76,13 @@ class UnidadMedida(ClaseModelo):
 
 
 class Producto(ClaseModelo):
+    PERECEDERO = 'P'
+    NO_PERECEDERO = 'NP'
+    TIPO_PRODUCTO = [
+        (PERECEDERO, 'Perecedero'),
+        (NO_PERECEDERO, 'No Perecedero'),
+    ]
+
     codigo = models.CharField(
         max_length=20,
         unique=True
@@ -89,15 +96,22 @@ class Producto(ClaseModelo):
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     unidad_medida = models.ForeignKey(UnidadMedida, on_delete=models.CASCADE)
     subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE)
-    foto = models.ImageField(upload_to="images/",null=True,blank=True)
+    foto = models.ImageField(upload_to="images/", null=True, blank=True)
+
+    tipo_producto = models.CharField(
+        max_length=2,
+        choices=TIPO_PRODUCTO,
+        default=NO_PERECEDERO,
+        verbose_name="Tipo de Producto"
+    )
 
     def __str__(self):
         return '{}'.format(self.descripcion)
-    
+
     def save(self):
         self.descripcion = self.descripcion.upper()
-        super(Producto,self).save()
-    
+        super(Producto, self).save()
+
     class Meta:
         verbose_name_plural = "Productos"
-        unique_together = ('codigo','codigo_barra')
+        unique_together = ('codigo', 'codigo_barra')

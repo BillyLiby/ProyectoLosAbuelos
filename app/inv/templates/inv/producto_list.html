@@ -47,6 +47,7 @@
         <th >Cod. de barra</th>
         <th>Imagen</th>
         <th>Estado</th>
+        <th th data-sortable="true" data-field="tipo_producto">Tipo</th>
         <th class="all">Acciones</th>
       </thead>
       <tbody>
@@ -67,6 +68,7 @@
   {% endif %}
 </td>
           <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>
+          <td>{{ item.get_tipo_producto_display }}</td>
           <td>
             <button class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'inv:producto_edit' item.id %}')">
                 <i class="far fa-edit"></i></button>

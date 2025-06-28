@@ -164,7 +164,7 @@ class ProductoForm(forms.ModelForm):
         model = Producto
         fields = ['codigo', 'codigo_barra', 'descripcion', 'estado',
                   'precio', 'existencia', 'ultima_compra',
-                  'marca', 'subcategoria', 'unidad_medida', 'foto']
+                  'marca', 'subcategoria', 'unidad_medida', 'foto', 'tipo_producto']
         exclude = ['um', 'fm', 'uc', 'fc']
         widget = {'descripcion': forms.TextInput()}
 
