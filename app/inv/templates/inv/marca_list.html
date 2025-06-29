@@ -37,7 +37,7 @@
       data-locale="es-NI"
       data-page-size="5"
     >
-      <thead>
+      <thead  class="text-center">
         <th data-sortable="true" data-field="ID">ID</th>
         <th data-sortable="true" data-field="Marca">Marca</th>
         <th data-sortable="true" data-field="Estado">Estado</th>
@@ -47,7 +47,7 @@
       </thead>
       <tbody>
         {% for item in obj%}
-        <tr>
+        <tr class="text-center">
           <td>{{ item.id }}</td>
           <td>{{ item.descripcion }}</td>
           <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>
@@ -55,7 +55,7 @@
           <td>{{ item.fm|date:"d/m/Y H:i:s"}}</td>
           <td>
             <a href="{% url 'inv:marca_edit' item.id %}" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a> 
-            <a href="{% url 'inv:marca_inactivar' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="far fa-thumbs-down"></i></a>
+            <!-- a href="{% url 'inv:marca_inactivar' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="far fa-thumbs-down"></i></a> -->
           </td>
         </tr>
         {% endfor %}
