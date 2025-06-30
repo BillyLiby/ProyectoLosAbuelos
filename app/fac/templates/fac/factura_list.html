@@ -28,7 +28,7 @@
   </div>
   <div class="col-md-4">
     <label class="form-label d-block text-white">.</label> <!-- para alinear con inputs -->
-    <button class="btn btn-warning w-100" type="button" id="btnPrint">
+    <button class="btn btn-secondary w-100" type="button" id="btnPrint">
       <i class="fas fa-print"></i> Generar Reporte
     </button>
   </div>
@@ -41,7 +41,9 @@
     <div class="alert alert-info">No Hay Ventas</div>
     {% endif %}
     <div class="buttons-toolbar">
-        <a class="btn btn-success" href="{% url 'fac:factura_new' %}"><i cass="far fa-calendar-plus"></i> Registrar nueva venta</a>
+        <a class="btn btn-danger btn-lg text-white" href="{% url 'fac:factura_new' %}">
+        <i class="fas fa-plus-circle me-2"></i> NUEVA VENTA
+  </a>
     </div>
 
     <table 

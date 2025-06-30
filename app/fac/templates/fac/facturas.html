@@ -6,7 +6,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <a href="#" class="btn btn-info">Guardar</a>
-        <a href="{% url 'fac:factura_imprimir_one' enc.id %}" class="btn btn-success" target="_factura">Reporte de venta</a>
+        <a href="{% url 'fac:factura_imprimir_one' enc.id %}" class="btn btn-secondary" target="_factura">Reporte de venta</a>
         <a href="{% url 'fac:factura_list' %}" class="btn btn-danger">Regresar</a>
     </div>
     <div class="card-body">
@@ -321,10 +321,10 @@
         $("#descuento").val("{{ enc.descuento }}");
         $("#total").val({{ enc.total }});
 
-
-        $("#enc_cliente").data('select2').trigger('select', {
-            data: {"id": 2}
-        });
+        //cliente predeterminado
+        //$("#enc_cliente").data('select2').trigger('select', {
+       //     data: {"id": 2}
+      //  });
     });
 
     function borrar_detalle(id)
