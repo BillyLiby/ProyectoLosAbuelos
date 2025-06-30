@@ -2,83 +2,46 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Listado de Compras</title>
-
-    <style type="text/css">
-    @page {
-        size: letter;
-        margin: 1cm;
-    }
-    .table {
-        width: 100%;
-        max-width: 100%;
-        margin-bottom: 5px;
-        background-color: #fff;
-    }
-    .table th,
-    .table td {
-        padding: 5px;
-        vertical-align: top;
-        border-top: 1px solid #000;
-        text-align: center;
-    }
-    .table thead th {
-        vertical-align: bottom;
-        border-bottom: 2px solid #000;
-    }
-    .table tbody + tbody {
-        border-top: 2px solid #000;
-    }
-    .table .table {
-        background-color: #fff;
-    }
-    .list-group {
-        display: block;
-        width: 100%;
-        list-style: none;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-    .list-group p {
-        width: 100%;
-        height: 20px;
-        line-height: 20px;
-        list-style: none;
-        font-size: 1.1em;
-    }
+    <title>Reporte de Compras</title>
+    <style>
+        @page { size: letter; margin: 1.5cm; }
+        body { font-family: Arial, sans-serif; color: #333; }
+        header { text-align: center; margin-bottom: 20px; }
+        .logo { width: 80px; float: left; }
+        h1, h2 { margin: 0; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        .table th, .table td { border: 1px solid #999; padding: 8px; text-align: center; }
+        .table th { background-color: #f2f2f2; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h4>Abarroteria Los Abuelos</h4>
-                <h3>Reporte de Compras al {{ today|date:"d/m/Y" }}</h3>
-            </div>
+    <header>
+    {% load static %}
+<img src="{% static 'base/img/LOGO.png' %}" class="logo">
+        <h1>Abarrotería Los Abuelos</h1>
+        <h2>Listado de Compras</h2>
+        <p><strong>Fecha:</strong> {{ today|date:"d/m/Y" }}</p>
+    </header>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>No. Compra</th>
-                        <th>Proveedor</th>
-                        <th>Fecha</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in obj %}
-                    <tr>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.proveedor }}</td>
-                        <td>{{ item.fecha_compra | date:"d/m/Y" }}</td>
-                        <td>{{ item.total }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No. Compra</th>
+                <th>Proveedor</th>
+                <th>Fecha</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in obj %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.proveedor }}</td>
+                <td>{{ item.fecha_compra|date:"d/m/Y" }}</td>
+                <td>Q{{ item.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
