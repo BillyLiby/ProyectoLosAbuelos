@@ -32,7 +32,7 @@
                                                     {{form_enc.fecha_compra}}
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="id_descripcion">Descripción:</label>
+                                                    <label for="id_descripcion">Observación:</label>
                                                     {{form_enc.observacion}}
                                                 </div>
                                             </div>
@@ -139,8 +139,8 @@
                                         <div class="dropdown-divider"></div>
                                         <div class="row">
                                             <div class="col">
-                                                <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
-                                                <a href="{% url 'cmp:compras_list' %}" class="btn btn-success"><i class="far fa-hand-point-left"></i> Cancelar</a>
+                                                <button type="submit" class="btn btn-warning text-dark" ><span class="fa fa-save"></span> GUARDAR COMPRA</button>
+                                                <a href="{% url 'cmp:compras_list' %}" class="btn btn-danger"><i class="far fa-hand-point-left"></i> Regresar</a>
                                             </div>
                                         </div>
                                         <!-- Fin Botones -->
