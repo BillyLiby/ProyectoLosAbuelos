@@ -45,7 +45,7 @@
       data-locale="es-NI"
       data-page-size="5"
     >
-      <thead>
+      <thead class="text-center">
         <th data-sortable="true" data-field="ID">Id</th>        
         <th data-sortable="true" data-field="fecha_compra">Fecha</th>
         <th>Observación</th>
@@ -54,12 +54,12 @@
         <th data-sortable="true" data-field="sub_total">Sub Total</th>
         <th data-sortable="true" data-field="descuento">Descuento</th>
         <th data-sortable="true" data-field="total">Total</th>
-        <th data-sortable="true" data-field="estado">Estado</th>
+        <!-- <th data-sortable="true" data-field="estado">Estado</th> -->
         <th class="all">Acciones</th>
       </thead>
       <tbody>
         {% for item in obj%}
-        <tr>
+        <tr class="text-center">
           <td>{{ item.id }}</td>
           <td>{{ item.fecha_compra }}</td>
           <td>{{item.observacion}}</td>
@@ -68,7 +68,7 @@
           <td>{{ item.sub_total }}</td>
           <td>{{ item.descuento }}</td>
           <td>{{ item.total }}</td>
-          <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>
+         <!--<td>{{item.estado|yesno:"Activo,Inactivo"}}</td>-->
           <td>
             <a class="btn btn-warning btn-circle" href="{% url 'cmp:compras_edit' item.id %}"><i class="far fa-edit"></i></a>
             <a class="btn btn-success btn-circle" href="{% url 'cmp:compras_print_one' item.id %}" target="reportes"><i class="fas fa-print"></i></a>

@@ -58,22 +58,22 @@
       data-locale="es-NI"
       data-page-size="5"
     >
-    <thead>
+    <thead class="text-center">
       <th data-sortable="true" data-field="id">No.</th>     
       <th data-sortable="true" data-field="fecha">Fecha</th>    
       <th data-sortable="true" data-field="nombres">Cliente</th>
       <th data-sortable="true" data-field="apellidos">Total</th>
-      <th data-field="estado">Estado</th>
+      <!-- <th data-field="estado">Estado</th> -->
       <th class="all">Acciones</th>
     </thead>
     <tbody>
       {% for item in obj%}
-      <tr>
+      <tr class="text-center">
         <td>{{ item.id }}</td>
         <td>{{ item.fecha | date:"d/m/Y" }}</td>
         <td>{{ item.cliente }}</td>
         <td>{{ item.total }}</td>
-        <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>
+       <!-- <td>{{item.estado|yesno:"Activo,Inactivo"}}</td>-->
         <td>
            <a href="{% url 'fac:factura_edit' item.id %}" class="href btn btn-warning btn-circle">
               <i class="far fa-edit"></i>
