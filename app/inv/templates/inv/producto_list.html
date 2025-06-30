@@ -20,10 +20,10 @@
     {% if not obj %}
     <div class="alert alert-info">No Productos</div>
     {% endif %}
-    <div class="buttons-toolbar">
-  <a class="btn btn-success text-white" onclick="return abrir_modal('{% url 'inv:producto_new' %}')">
-    <i class="far fa-calendar-plus"></i> Ingresar nuevo producto
-  </a>
+    <div class="buttons-toolbar my-3">
+    <a class="btn btn-warning text-dark border-dark shadow-sm fw-semibold" onclick="return abrir_modal('{% url 'inv:producto_new' %}')">
+        <i class="fas fa-plus-circle me-2"></i> Ingresar nuevo Producto
+    </a>
 </div>
     <table 
       id="table"
@@ -37,7 +37,7 @@
       data-locale="es-NI"
       data-page-size="5"
     >
-      <thead>
+      <thead class="text-center">
         <th th data-sortable="true" data-field="codigo">Código</th>
         <th th data-sortable="true" data-field="descripcion">Producto</th>
         <th th data-sortable="true" data-field="subcategoria">Categoria</th>
@@ -51,7 +51,7 @@
       </thead>
       <tbody>
         {% for item in obj%}
-        <tr>
+        <tr class="text-center">
           <td>{{ item.codigo }}</td>
           <td>{{ item.descripcion }}</td>
           <td>{{ item.subcategoria }}</td>
@@ -70,7 +70,7 @@
           <td>
             <button class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'inv:producto_edit' item.id %}')">
                 <i class="far fa-edit"></i></button>
-                <a href="{% url 'inv:producto_inactivar' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="far fa-thumbs-down"></i></a>
+               <!--<a href="{% url 'inv:producto_inactivar' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="far fa-thumbs-down"></i></a>-->
           </td>
         </tr>
         {% endfor %}
